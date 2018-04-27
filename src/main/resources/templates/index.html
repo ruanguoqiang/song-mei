@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="/css/style.css"> <!-- Resource style -->
+    <link rel="stylesheet" href="/css/demo.css"> <!-- Demo style -->
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/amazeui.css">
+    <link rel="stylesheet" type="text/css" href="/css/barrager.css" />
+    <link rel="stylesheet" type="text/css" href="/css/pick-a-color-1.2.3.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/shCoreDefault.css" />
+    <link href="css/default.css" type="text/css" rel="stylesheet">
+    <title>图片 </title>
+</head>
+<body>
+
+
+<div id="myCarousel" class="carousel slide">
+    <!-- 轮播（Carousel）指标 -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0"
+            class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner" id="lunbo">
+        <nav class="cd-main-nav js-main-nav" style="position:absolute ; right: 0px;top: 20px;z-index: 2">
+            <ul class="cd-main-nav__list js-signin-modal-trigger">
+                <!-- inser more links here -->
+                <li>
+                    <a th:href="@{/myself(username=${session.name})}" class="cd-main-nav__item cd-main-nav__item--signup" data-signin="login" style="background-color: whitesmoke" >
+                        <img src="@{${imgsrc}}" th:attr="src=@{${session.imgsrc}}"  class="img-thumbnail" style="height: 20px;width: 20px">
+                    </a>
+                </li>
+                <li><a  th:href="@{/logout(username=${session.name})}" class="cd-main-nav__item cd-main-nav__item--signup" href="#0" data-signin="signup">注销</a></li>
+            </ul>
+        </nav>
+        <div class="item active">
+            <img src="img/1.png"  alt="First slide" style="width: 100% ;height:534px">
+            <div class="carousel-caption">
+                <p class="text-center"style="font-family: bold,Hiragino Sans GB;height: 30px;color: red">这是我们一起相遇</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="img/2.png"  alt="Second slide" style="width: 100%;height:534px">
+            <div class="carousel-caption">
+                <p class="text-center"style="font-family: bold,Hiragino Sans GB;height: 30px;color: red">这是我们一起相遇2</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="img/3.png" alt="Third slide" style="width: 100%;height:534px">
+            <div class="carousel-caption">
+                <p class="text-center"style="font-family: bold,Hiragino Sans GB;height: 30px;color: red">这是我们一起相遇3</p>
+            </div>
+        </div>
+    </div>
+    <div id="addModal" class="modal fade" tabindex="-1" role="dialog" style="top:70%;right:10px">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" >
+                <div  class="modal-body" style="padding-bottom: 0px">
+                    <form id="form_data" >
+                        <div  class="form-group">
+                            <input type="text" name="barrager_info" class="form-control" id="barrager_info"/>
+                        </div>
+                    </form>
+                    <!---->
+                </div>
+                <div class="modal-footer" style="padding-top: 0px;padding-bottom: 0px">
+                    <a href="#" class="btn"  data-dismiss="modal" aria-hidden="true" id="hide_modal">取 消</a>
+                    <button  onclick="add_barrager()" class="btn btn-primary" id="false-commit">送祝福</button>
+                    <span id="tip"> </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="foot">
+    <!-- 轮播（Carousel）导航 -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="height: 534px">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" style="height: 534px">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    <!-- 控制按钮 -->
+    <div style="text-align:center; width: 100%;height: 110px" class="well container" id="control_foot">
+        <input type="button" class="btn start-slide" value="开始">
+        <input type="button" class="btn pause-slide" value="停止">
+        <input type="button" class="btn prev-slide" value="上一个">
+        <input type="button" class="btn next-slide" value="下一个">
+        <input type="button" id="demo-full-page" class="btn " value="全屏">
+        <a href="#addModal"  role="button" class="btn " data-toggle="modal" >
+            <i class="icon-plus"></i> 发弹幕</a>
+        <p style="margin-left: 70%"> &copy; 2018-05-01 <a href="http://www.baidu.com">guosong.ruan</a>.
+            by &mdash;  <a href="http://www.baidu.com">guosong.ruan</a></p>
+    </div>
+</div>
+
+
+<script src="/js/placeholders.min.js"></script> <!-- polyfill for the HTML5 placeholder attribute -->
+<script src="/js/main.js"></script> <!-- Resource JavaScript -->
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/amazeui.min.js"></script>
+<script type="text/javascript" src="/js/jquery.barrager.js"></script>
+<script type="text/javascript" src="/js/tinycolor-0.9.15.min.js"></script>
+<script type="text/javascript" src="/js/pick-a-color-1.2.3.min.js"></script>
+<script type="text/javascript" src="/js/shCore.js"></script>
+<script type="text/javascript" src="/js/shBrushJScript.js"></script>
+<script type="text/javascript" src="/js/shBrushPhp.js"></script>
+<script>
+
+    $(function(){
+        // 初始化轮播
+        $(".start-slide").click(function(){
+            $("#myCarousel").carousel('cycle');
+        });
+        // 停止轮播
+        $(".pause-slide").click(function(){
+            $("#myCarousel").carousel('pause');
+        });
+        // 循环轮播到上一个项目
+        $(".prev-slide").click(function(){
+            $("#myCarousel").carousel('prev');
+        });
+        // 循环轮播到下一个项目
+        $(".next-slide").click(function(){
+            $("#myCarousel").carousel('next');
+        });
+        var start = function() {
+            var rate = 10000;
+            var _play = function () {
+                $('#myCarousel').carousel('next');
+            };
+            setInterval(_play, rate);
+        }();
+        // setTimeout(_chuxian,285000);
+        $changeHeight2 = $( "#lunbo > div>img");
+        var imgheight=window.screen.height*0.75;
+        var footSlide=window.screen.height*0.14;
+        document.getElementById("control_foot").style.height=footSlide;
+        $($changeHeight2).each(function(index,obj){
+            obj.style.height=imgheight;
+        });
+        //全屏
+        var fullscreen = $.AMUI.fullscreen;
+        if (fullscreen.enabled) {
+            document.addEventListener(fullscreen.raw.fullscreenchange, function() {
+                $changeHeight = $( "#lunbo > div>img");
+                if(fullscreen.isFullscreen){
+                    $($changeHeight).each(function(index,obj){
+                        obj.style.width="100%";
+                        obj.style.height="100%";
+                    });
+
+                }
+                else{
+                    $($changeHeight).each(function(index,obj) {
+                        obj.style.width = "100%";
+                        obj.style.height = 534;
+                    });
+                }
+            });
+        }
+        $('#demo-full-page').on('click', function () {
+            if (fullscreen.enabled) {
+                fullscreen.request(document.getElementById('myCarousel'));
+                return false;
+            }
+        });
+
+
+        $(".pick-a-color").pickAColor();
+        var item={'img':'img/heisenberg.png','href':'http://www.baidu.com','info':'这个是第一条弹幕'};
+        $('body').barrager(item);
+        //每条弹幕发送间隔
+        //是否首次执行
+        var run_once=true;
+        var do_barrager = function() {
+            var looper_time=6*1000;
+            var _palyBarrager = function () {
+                if(run_once){
+                    $.ajax(
+                        {
+                            url: "/getBarrager",
+                            //   data:{"id":updateid},
+                            type: "get",
+                            success:function(data)
+                            {
+                                if(data)
+                                {
+                                    // 解析json数据
+                                    var result= eval("("+data+")");
+                                    $.each(result,function(i,dom){
+                                        //  data = "{"1":{"barrid":1,"bottom":60,"color":"#fff","href":"baidu.com","img":"static/img/heisenberg.png","info":"真正的开始","speed":10}}"
+                                        var  item={
+                                            'img':'img/'+dom.img,
+                                            'info':dom.info,
+                                            'href':dom.href,
+                                            'close':true,
+                                            'speed':dom.speed,
+                                            'bottom':dom.bottom,
+                                            'color':dom.color
+                                        };
+                                        $('body').barrager(item);
+                                    });
+                                }
+                                else
+                                {
+                                    alert('操作失败');
+                                }
+                            }
+                        });
+                    //如果是首次执行,则设置一个定时器,并且把首次执行置为false
+                    setInterval(do_barrager,looper_time);
+                    run_once=false;
+                }
+                else{
+                    $.ajax(
+                        {
+                            url: "/getActualBarrager",
+                            //   data:{"id":updateid},
+                            type: "get",
+                            success:function(data)
+                            {
+                                if(data)
+                                {
+                                    // 解析json数据
+                                    var result= eval("("+data+")");
+                                    $.each(result,function(i,dom){
+                                        //  data = "{"1":{"barrid":1,"bottom":60,"color":"#fff","href":"baidu.com","img":"static/img/heisenberg.png","info":"真正的开始","speed":10}}"
+                                        var  item={
+                                            'img':'img/'+dom.img,
+                                            'info':dom.info,
+                                            'href':dom.href,
+                                            'close':true,
+                                            'speed':dom.speed,
+                                            'bottom':dom.bottom,
+                                            'color':dom.color
+                                        };
+                                        $('body').barrager(item);
+                                    });
+                                }
+                                else
+                                {
+                                }
+                            }
+                        });
+                }
+            };
+            setInterval(_palyBarrager, looper_time);
+        }();
+
+
+    });
+
+    function  add_barrager(){
+        var barrager_info=$("#barrager_info").val();
+        $.ajax(
+            {
+                url: "/addBarrager",
+                data:{
+                    'id':barrager_info
+                },
+                type: "post",
+                contentType:'application/json;charset=UTF-8',
+                //content-type
+                success:function(data)
+                {
+                    if(data)
+                    {
+                    }
+                    else
+                    {
+                        // $("#tip").html("<span style='color:red'>失败，请重试</span>");
+                        alert('操作失败');
+                    }
+                }
+            });
+        document.getElementById("hide_modal").click();
+    }
+
+</script>
+</body>
+</html>

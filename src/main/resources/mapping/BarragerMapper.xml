@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuezhijian.mapper.BarragerMapper" >
+  <resultMap id="BaseResultMap" type="com.xuezhijian.model.Barrager" >
+ <id column="barrId" property="barrid" jdbcType="INTEGER" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="href" property="href" jdbcType="VARCHAR" />
+    <result column="speed" property="speed" jdbcType="INTEGER" />
+    <result column="bottom" property="bottom" jdbcType="INTEGER" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    barrId, info, href, speed, bottom, color, img
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  select
+  <include refid="Base_Column_List" />
+  from barrager
+  where barrId = #{barrid,jdbcType=INTEGER}
+</select>
+  <!-- 新加-->
+  <select id="getAllBarrager" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from barrager
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from barrager
+    where barrId = #{barrid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xuezhijian.model.Barrager" >
+    insert into barrager (barrId, info, href, 
+      speed, bottom, color, 
+      img)
+    values (#{barrid,jdbcType=INTEGER}, #{info,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, 
+      #{speed,jdbcType=INTEGER}, #{bottom,jdbcType=INTEGER}, #{color,jdbcType=VARCHAR}, 
+      #{img,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuezhijian.model.Barrager" >
+    insert into barrager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="barrid != null" >
+        barrId,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="href != null" >
+        href,
+      </if>
+      <if test="speed != null" >
+        speed,
+      </if>
+      <if test="bottom != null" >
+        bottom,
+      </if>
+      <if test="color != null" >
+        color,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="barrid != null" >
+        #{barrid,jdbcType=INTEGER},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="speed != null" >
+        #{speed,jdbcType=INTEGER},
+      </if>
+      <if test="bottom != null" >
+        #{bottom,jdbcType=INTEGER},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuezhijian.model.Barrager" >
+    update barrager
+    <set >
+      <if test="info != null" >
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="speed != null" >
+        speed = #{speed,jdbcType=INTEGER},
+      </if>
+      <if test="bottom != null" >
+        bottom = #{bottom,jdbcType=INTEGER},
+      </if>
+      <if test="color != null" >
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where barrId = #{barrid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuezhijian.model.Barrager" >
+    update barrager
+    set info = #{info,jdbcType=VARCHAR},
+      href = #{href,jdbcType=VARCHAR},
+      speed = #{speed,jdbcType=INTEGER},
+      bottom = #{bottom,jdbcType=INTEGER},
+      color = #{color,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR}
+    where barrId = #{barrid,jdbcType=INTEGER}
+  </update>
+</mapper>

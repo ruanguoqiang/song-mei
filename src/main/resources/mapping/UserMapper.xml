@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuezhijian.mapper.UserMapper">
+  <resultMap type="com.xuezhijian.model.User" id="userMap">
+    <id property="uid" column="uid"/>
+    <result property="username" column="username"/>
+    <result property="password" column="password"/>
+    <result property="email" column="email"/>
+    <collection property="roles" ofType="com.xuezhijian.model.Role">
+      <id property="rid" column="rid"/>
+      <result property="rname" column="rname"/>
+      <collection property="modules" ofType="com.xuezhijian.model.Module">
+        <id property="mid" column="mid"/>
+        <result property="mname" column="mname"/>
+      </collection>
+    </collection>
+  </resultMap>
+  <select id="findByUserName" parameterType="string" resultMap="userMap">
+    SELECT u.*,r.*,m.* FROM user u inner join user_role ur on ur.uid=u.uid
+    inner join role r on r.rid=ur.rid
+    inner join module_role mr on mr.rid=r.rid
+    inner join module m on mr.mid=m.mid
+    WHERE username=#{username};
+  </select>
+
+  <insert id="insertUser" parameterType="com.xuezhijian.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertRole" parameterType="java.lang.Integer" >
+    insert into user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+       rid,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      2,
+    </trim>
+  </insert>
+
+  <select id="gettotalNumber" resultType="java.lang.Integer">
+    select count(*)
+    from user
+  </select>
+
+</mapper>
